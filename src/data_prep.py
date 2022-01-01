@@ -1,6 +1,12 @@
 import pandas as pd
 import numpy as np
+import json
+import os
 from chembl_webresource_client.new_client import new_client
+
+f = open('/Users/sagarkolte/Documents/Code/bioinformatics/config/data_prep_config.json', )
+data = json.load(f)
+
 
 
 def chembl_search(search_string):
@@ -18,7 +24,7 @@ def get_bioactivity(target_chembl_id, standard_type):
     return df
 
 
-def main_pipe(target_chembl_id, standard_type):
+def main_pipe(target_chembl_id=data['target_chembl_id'], standard_type=data['standard_type']):
     df = get_bioactivity(target_chembl_id, standard_type)
     df['bioactivity_inactive'] = df['standard_value'].astype('float') >= 10000
     df['bioactivity_active'] = df['standard_value'].astype('float') < 1000
@@ -30,6 +36,7 @@ def main_pipe(target_chembl_id, standard_type):
              'bioactivity_active',
              'bioactivity_intermediate']]
     df = df.drop_duplicates()
-    return df
+    df.to_csv(data["bioactivity_save_path"].format(target_chembl_id,standard_type))
+    return None
 
 

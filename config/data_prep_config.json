@@ -1,0 +1,5 @@
+{
+  "bioactivity_save_path": "/Users/sagarkolte/Documents/Code/bioinformatics/data/bioactivity_{}_{}.csv",
+  "target_chembl_id": "CHEMBL3927",
+  "standard_type": "IC50"
+}
